@@ -1,3 +1,3 @@
-# telechat
+# Tele Chat
 
-Messenger with Flutter and Supabase as backend for Android, IOS.
+Messenger with Flutter and Supabase as backend for Android and IOS.
