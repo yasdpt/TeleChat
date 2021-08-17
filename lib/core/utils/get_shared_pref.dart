@@ -7,7 +7,7 @@ import '../consts/app_consts.dart';
 class SharedPrefController extends GetxController {
   final box = GetStorage();
 
-  String get getLanguage => box.read(sLanguageKey);
+  String get getLanguage => box.read(sLanguageKey) ?? 'en';
   void updateLanguage(String language) => box.write(sLanguageKey, language);
 
   ThemeMode get getAppTheme {

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:responsive_framework/responsive_framework.dart';
 
 import 'core/cubit/app_theme_cubit.dart';
@@ -55,6 +56,19 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale('en', ''), // English, no country code
+              Locale('fa', ''), // Farsi, no country code
+            ],
+            localeResolutionCallback: (locale, supportedLocales) =>
+                Locale(controller.getLanguage, ''),
+            locale: Locale(controller.getLanguage, ''),
             onGenerateRoute: generateRoutes,
             theme: CustomTheme.lightTheme,
             darkTheme: CustomTheme.darkTheme,

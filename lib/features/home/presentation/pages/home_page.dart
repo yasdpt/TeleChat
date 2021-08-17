@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -51,6 +51,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SharedPrefController());
+    final locale = AppLocalizations.of(context).helloWorld;
+    print(locale);
     //getUsers();
     return Scaffold(
       appBar: AppBar(
@@ -97,12 +99,12 @@ class _HomePageState extends State<HomePage> {
         child: ElevatedButton(
           onPressed: () {
             // Navigator.of(context).pushNamed(ChatPage.routeName, arguments: 5);
-            if (controller.getAppTheme == ThemeMode.light) {
-              controller.updateAppTheme('dark');
+            if (controller.getLanguage == 'en') {
+              controller.updateLanguage('fa');
             } else {
-              controller.updateAppTheme('light');
+              controller.updateLanguage('en');
             }
-            BlocProvider.of<AppThemeCubit>(context).toggleTheme();
+            BlocProvider.of<AppThemeCubit>(context).toggleLanguage();
           },
           child: Text(
             'Go to chat page',

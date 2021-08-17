@@ -6,4 +6,8 @@ class AppThemeCubit extends Cubit<bool> {
   void toggleTheme() {
     emit(!state);
   }
+
+  void toggleLanguage() {
+    emit(!state);
+  }
 }
