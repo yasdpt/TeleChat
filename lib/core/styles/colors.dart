@@ -25,3 +25,6 @@ const Color cBrownGrey = Color(0xff979797);
 const Color cOrangeBorder = Color(0xffff8a00);
 const Color cLightRed = Color(0xffff2d2d);
 const Color cItemBorder = Color(0xffebebeb);
+
+const Color cDarkThemeColor = Color(0xff212d3b);
+const Color cDarkThemeScaffold = Color(0xff1d2733);
