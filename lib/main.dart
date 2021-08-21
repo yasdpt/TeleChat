@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             title: 'TeleChat',
             debugShowCheckedModeBanner: false,
             builder: (context, widget) => ResponsiveWrapper.builder(
-              BouncingScrollWrapper.builder(context, widget),
+              widget,
               maxWidth: 1200,
               minWidth: 390,
               defaultScale: true,

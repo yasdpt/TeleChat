@@ -1,5 +1,18 @@
 {
     "helloWorld": "سلام دنیا!",
 
+    "newGroup": "گروه جدید",
+    "contacts": "مخاطبین",
+    "savedMessages": "پیام های ذخیره شده",
+    "settings": "تنظیمات",
+    "aboutUs": "درباره ما",
+    "account": "حساب کاربری",
+    "phoneNumer": "شماره تلفن",
+    "username": "نام کاربری",
+    "bio": "بیوگرافی",
+    "notificationSettings": "تنظیمات اعلان ها",
+    "chatSettings": "تنظیمات چت",
+    "language": "زبان",
+
     "end": "end"
 }

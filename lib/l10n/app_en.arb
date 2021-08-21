@@ -1,5 +1,18 @@
 {
     "helloWorld": "Hello World!",
 
+    "newGroup": "New Group",
+    "contacts": "Contacts",
+    "savedMessages": "Saved Messages",
+    "settings": "Settings",
+    "aboutUs": "About Us",
+    "account": "Account",
+    "phoneNumer": "Phone number",
+    "username": "Username",
+    "bio": "Bio",
+    "notificationSettings": "Notification Settings",
+    "chatSettings": "Chat Settings",
+    "language": "Language",
+
     "end": "end"
 }

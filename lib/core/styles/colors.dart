@@ -28,3 +28,10 @@ const Color cItemBorder = Color(0xffebebeb);
 
 const Color cDarkThemeColor = Color(0xff212d3b);
 const Color cDarkThemeScaffold = Color(0xff1d2733);
+const Color cDarkThemeSecondaryColor = Color(0xff405361);
+const Color cLightThemeSecondaryColor = Color(0xffbbbbbb);
+const Color cLightMessageMe = Color(0xffeeffdd);
+const Color cLightMessageOther = Color(0xffffffff);
+const Color cDarkMessageMe = Color(0xff3f6187);
+const Color cDarkMessageOther = Color(0xff222e3a);
+const Color cTitleBlue = Color(0xff40a7e3);
