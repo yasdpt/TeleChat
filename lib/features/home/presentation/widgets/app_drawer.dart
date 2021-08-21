@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../core/cubit/app_theme_cubit.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/utils/get_shared_pref.dart';
+import '../../../contacts/presentation/pages/contacts_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -146,8 +147,7 @@ class AppDrawer extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline3,
               ),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.of(context).pushNamed(ContactsPage.routeName);
               },
             ),
             ListTile(

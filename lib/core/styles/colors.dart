@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 const Color cBoxShadowColor = Color(0xff979797);
 const Color cDarkMint = Color(0xff4ebf85);
@@ -35,3 +36,22 @@ const Color cLightMessageOther = Color(0xffffffff);
 const Color cDarkMessageMe = Color(0xff3f6187);
 const Color cDarkMessageOther = Color(0xff222e3a);
 const Color cTitleBlue = Color(0xff40a7e3);
+
+List<Color> colors = [
+  Color(0xffff4545),
+  Color(0xff3ccaed),
+  Color(0xff40a7e3),
+  Color(0xff4ebf85),
+  Colors.amber[900],
+  Colors.brown,
+  Colors.deepOrangeAccent,
+  Colors.purple,
+  Colors.teal,
+  Colors.yellow[700],
+];
+
+Color getRandomColor() {
+  final random = Random();
+  int index = random.nextInt(9);
+  return colors[index];
+}

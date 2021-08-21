@@ -41,6 +41,7 @@ dependencies:
   jiffy: ^4.1.0
   supabase: ^0.2.2
   collection: ^1.15.0
+  permission_handler: ^8.1.4+2
   flutter_contacts: ^1.1.0+3
   universal_platform: ^1.0.0+1
   

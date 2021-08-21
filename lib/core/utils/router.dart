@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:telechat/features/contacts/presentation/pages/contacts_page.dart';
 
 import '../../features/chat/presentation/pages/private_chat_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
@@ -30,6 +31,11 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case LanguagePage.routeName:
       return CupertinoPageRoute(
         builder: (_) => LanguagePage(),
+        settings: settings,
+      );
+    case ContactsPage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => ContactsPage(),
         settings: settings,
       );
     default:
