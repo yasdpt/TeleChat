@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -36,44 +37,46 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<AppThemeCubit, bool>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          return MaterialApp(
-            title: 'TeleChat',
-            debugShowCheckedModeBanner: false,
-            builder: (context, widget) => ResponsiveWrapper.builder(
-              widget,
-              maxWidth: 1200,
-              minWidth: 390,
-              defaultScale: true,
-              breakpoints: [
-                ResponsiveBreakpoint.resize(390, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(480, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-                ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-                ResponsiveBreakpoint.autoScale(2460, name: "4K"),
-              ],
-              background: Container(
-                color: Colors.white,
+          return Portal(
+            child: MaterialApp(
+              title: 'TeleChat',
+              debugShowCheckedModeBanner: false,
+              builder: (context, widget) => ResponsiveWrapper.builder(
+                widget,
+                maxWidth: 1200,
+                minWidth: 390,
+                defaultScale: true,
+                breakpoints: [
+                  ResponsiveBreakpoint.resize(390, name: MOBILE),
+                  ResponsiveBreakpoint.autoScale(480, name: MOBILE),
+                  ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                  ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+                  ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+                  ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+                ],
+                background: Container(
+                  color: Colors.white,
+                ),
               ),
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: [
+                Locale('en', ''), // English, no country code
+                Locale('fa', ''), // Farsi, no country code
+              ],
+              localeResolutionCallback: (locale, supportedLocales) =>
+                  Locale(controller.getLanguage, ''),
+              locale: Locale(controller.getLanguage, ''),
+              onGenerateRoute: generateRoutes,
+              theme: CustomTheme.lightTheme,
+              darkTheme: CustomTheme.darkTheme,
+              themeMode: controller.getAppTheme,
+              home: HomePage(),
             ),
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [
-              Locale('en', ''), // English, no country code
-              Locale('fa', ''), // Farsi, no country code
-            ],
-            localeResolutionCallback: (locale, supportedLocales) =>
-                Locale(controller.getLanguage, ''),
-            locale: Locale(controller.getLanguage, ''),
-            onGenerateRoute: generateRoutes,
-            theme: CustomTheme.lightTheme,
-            darkTheme: CustomTheme.darkTheme,
-            themeMode: controller.getAppTheme,
-            home: HomePage(),
           );
         },
       ),

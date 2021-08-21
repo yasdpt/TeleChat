@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:telechat/features/chat/presentation/pages/group_chat_page.dart';
 import 'package:web_socket_channel/src/copy/web_socket_impl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
@@ -259,7 +260,11 @@ class _HomePageState extends State<HomePage> {
         // ),
         child: ListView.builder(
           itemCount: 10,
-          itemBuilder: (context, index) => ChatItemWidget(),
+          itemBuilder: (context, index) => ChatItemWidget(
+            onTap: () {
+              Navigator.of(context).pushNamed(PrivateChatPage.routeName);
+            },
+          ),
         ),
         // child: Directionality(
         //   textDirection: TextDirection.ltr,

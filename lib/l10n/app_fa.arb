@@ -14,5 +14,15 @@
     "chatSettings": "تنظیمات چت",
     "language": "زبان",
 
+    "message": "پیام",
+
+    "reply": "پاسخ",
+    "copy": "کپی",
+    "forward": "هدایت",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "forwardedMessage": "پیام هدایت شده",
+    "from": "از",
+
     "end": "end"
 }

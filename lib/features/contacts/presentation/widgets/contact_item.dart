@@ -25,7 +25,7 @@ class ContactItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               children: <Widget>[
-                SizedBox(width: 18),
+                SizedBox(width: 14),
                 Container(
                   width: 50,
                   height: 50,

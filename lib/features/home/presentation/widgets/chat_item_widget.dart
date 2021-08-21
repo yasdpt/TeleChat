@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:persian_tools/persian_tools.dart' as persianTools;
 
 class ChatItemWidget extends StatelessWidget {
-  
-  const ChatItemWidget({Key key}) : super(key: key);
+  final VoidCallback onTap;
+
+  const ChatItemWidget({
+    Key key,
+    @required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class ChatItemWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Column(
             children: [
               Row(

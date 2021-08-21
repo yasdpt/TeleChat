@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:telechat/features/chat/presentation/pages/group_chat_page.dart';
 import 'package:telechat/features/contacts/presentation/pages/contacts_page.dart';
 
 import '../../features/chat/presentation/pages/private_chat_page.dart';
@@ -18,9 +19,9 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
         builder: (_) => PrivateChatPage(),
         settings: settings,
       );
-    case PrivateChatPage.routeName:
+    case GroupChatPage.routeName:
       return CupertinoPageRoute(
-        builder: (_) => PrivateChatPage(),
+        builder: (_) => GroupChatPage(),
         settings: settings,
       );
     case SettingsPage.routeName:

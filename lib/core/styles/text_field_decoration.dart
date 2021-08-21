@@ -4,49 +4,51 @@ import 'colors.dart';
 import 'style_consts.dart';
 import 'text_styles.dart';
 
-InputDecoration defaultInputDecoration(BuildContext context, String label,
-    {TextStyle textStyle,
-    Color borderColor,
-    Text error,
-    double verticalPadding,
-    double horizontalPadding,
-    TextDirection hintTextDirection = TextDirection.rtl}) {
+InputDecoration defaultInputDecoration(
+  BuildContext context,
+  String label, {
+  TextStyle textStyle,
+  Color borderColor,
+  Text error,
+  Color backgroudColor = Colors.white,
+  double verticalPadding,
+  double horizontalPadding,
+  TextDirection hintTextDirection = TextDirection.ltr,
+}) {
   return InputDecoration(
     floatingLabelBehavior: FloatingLabelBehavior.never,
     hintText: label,
-    contentPadding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding ?? 14, vertical: verticalPadding ?? 11.5),
     hintStyle: textStyle ??
         const TextStyle(
-          color: cBoxShadowColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
+            color: cDarkGrey,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Vazir'),
     hintTextDirection: hintTextDirection,
-    fillColor: cPaleGrey,
-    focusColor: cPaleGrey,
+    fillColor: backgroudColor,
+    focusColor: backgroudColor,
     filled: true,
     isDense: true,
     alignLabelWithHint: true,
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: cDivider,
+        color: backgroudColor,
       ),
-      borderRadius: BorderRadius.circular(kBorderRadius),
+      borderRadius: BorderRadius.circular(0),
     ),
     counterText: '',
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: borderColor ?? cDarkMint),
-      borderRadius: BorderRadius.circular(kBorderRadius),
+      borderSide: BorderSide(color: backgroudColor),
+      borderRadius: BorderRadius.circular(0),
     ),
     errorStyle: tTextSmall.copyWith(color: cPrimaryRed),
     errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: cPrimaryRed),
-      borderRadius: BorderRadius.circular(kBorderRadius),
+      borderSide: BorderSide(color: backgroudColor),
+      borderRadius: BorderRadius.circular(0),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: cPrimaryRed),
-      borderRadius: BorderRadius.circular(kBorderRadius),
+      borderSide: BorderSide(color: backgroudColor),
+      borderRadius: BorderRadius.circular(0),
     ),
   );
 }

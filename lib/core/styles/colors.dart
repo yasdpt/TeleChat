@@ -36,6 +36,7 @@ const Color cLightMessageOther = Color(0xffffffff);
 const Color cDarkMessageMe = Color(0xff3f6187);
 const Color cDarkMessageOther = Color(0xff222e3a);
 const Color cTitleBlue = Color(0xff40a7e3);
+const Color cForwardColor = Color(0xff7eb7e4);
 
 List<Color> colors = [
   Color(0xffff4545),

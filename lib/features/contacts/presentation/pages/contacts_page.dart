@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:telechat/core/utils/custom_toast.dart';
 import 'package:telechat/features/contacts/presentation/widgets/contact_item.dart';
@@ -37,10 +38,11 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Contacts',
+          locale.contacts,
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -48,7 +50,7 @@ class _ContactsPageState extends State<ContactsPage> {
         child: showLoading
             ? CircularProgressIndicator()
             : contacts.isNotEmpty
-                ? ListView.builder(
+                ? ListView.separated(
                     padding: const EdgeInsets.all(0),
                     itemCount: contacts.length,
                     itemBuilder: (context, index) => Padding(
@@ -57,6 +59,12 @@ class _ContactsPageState extends State<ContactsPage> {
                           displayName: contacts[index].displayName,
                           lastSeen: 'Last seen recently',
                         )),
+                    separatorBuilder: (context, index) {
+                      return Container(
+                        color: Theme.of(context).dividerColor,
+                        height: 1.5,
+                      );
+                    },
                   )
                 : Text('No contacts available.'),
       ),

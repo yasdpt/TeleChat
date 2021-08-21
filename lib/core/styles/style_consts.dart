@@ -1,2 +1,1 @@
- 
-const double kBorderRadius = 12.0;
+const double kBorderRadius = 8.0;

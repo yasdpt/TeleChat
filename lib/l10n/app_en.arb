@@ -14,5 +14,15 @@
     "chatSettings": "Chat Settings",
     "language": "Language",
 
+    "message": "Message",
+    "reply": "Reply",
+    "copy": "Copy",
+    "forward": "Forward",
+    "delete": "Delete",
+    "edit": "Edit",
+
+    "forwardedMessage": "Forwarded message",
+    "from": "From",
+
     "end": "end"
 }

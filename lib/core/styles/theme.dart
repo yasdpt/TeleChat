@@ -8,6 +8,7 @@ class CustomTheme {
     return ThemeData(
       primaryColor: Colors.white,
       scaffoldBackgroundColor: Colors.white,
+      accentColor: Colors.blue,
       colorScheme: ColorScheme.light(
         secondary: cLightThemeSecondaryColor,
         onPrimary: Colors.black,
@@ -65,6 +66,7 @@ class CustomTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       primaryColor: cDarkThemeColor,
+      accentColor: cTitleBlue,
       scaffoldBackgroundColor: cDarkThemeScaffold,
       colorScheme: ColorScheme.light(
         secondary: cDarkThemeSecondaryColor,
