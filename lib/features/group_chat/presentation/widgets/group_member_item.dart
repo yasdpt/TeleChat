@@ -25,8 +25,8 @@ class GroupMemberItem extends StatelessWidget {
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.all(12),
-                height: 40,
-                width: 40,
+                height: 42,
+                width: 42,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.lightBlue[300],

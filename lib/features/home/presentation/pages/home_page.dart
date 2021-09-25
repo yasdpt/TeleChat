@@ -7,6 +7,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase/supabase.dart';
 import 'package:telechat/core/consts/app_consts.dart';
+import 'package:telechat/features/private_chat/presentation/pages/private_chat_page.dart';
 
 import '../../../../core/utils/hive_controller.dart';
 import '../../../group_chat/presentation/pages/group_chat_page.dart';
@@ -238,7 +239,7 @@ class _HomePageState extends State<HomePage> {
           ),
           itemBuilder: (context, index) => ChatItemWidget(
             onTap: () {
-              Navigator.of(context).pushNamed(GroupChatPage.routeName);
+              Navigator.of(context).pushNamed(PrivateChatPage.routeName);
             },
           ),
         ),

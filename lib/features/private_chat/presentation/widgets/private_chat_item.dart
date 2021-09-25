@@ -344,7 +344,7 @@ class _PrivateChatItemState extends State<PrivateChatItem> {
           child: Stack(
             children: [
               Hero(
-                tag: background1,
+                tag: Random().nextInt(200),
                 child: Image.asset(background1),
               ),
               //..._buildImageBlur,

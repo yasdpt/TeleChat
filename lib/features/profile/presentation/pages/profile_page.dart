@@ -197,34 +197,36 @@ class _ProfilePageState extends State<ProfilePage> {
               margin: const EdgeInsetsDirectional.only(
                 start: 18,
                 top: 12,
-                bottom: 4,
+                bottom: 8,
               ),
               child: Text(
-                'Media', // TODO: ADD LOCALIZATION
+                locale.media,
                 style: Theme.of(context).textTheme.headline2.copyWith(
                       color: cTitleBlue,
                     ),
               ),
             ),
-            GridView.count(
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: List.generate(
-                20,
-                (index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/ic_avatar.jpg'),
-                        fit: BoxFit.cover,
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                children: List.generate(
+                  20,
+                  (index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/ic_avatar.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                        border: Border.all(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
                       ),
-                      border: Border.all(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ],

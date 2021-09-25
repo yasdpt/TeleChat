@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:persian_tools/persian_tools.dart' as persianTools;
 import 'package:telechat/core/styles/style_consts.dart';
@@ -76,7 +75,7 @@ class _ChatSettingsPageState extends State<ChatSettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Chat settings',
+          _locale.chatSettings,
           style: TextStyle(color: Colors.white),
         ),
         actions: [

@@ -208,13 +208,13 @@ class _GroupProfilePageState extends State<GroupProfilePage>
                 Tab(
                   iconMargin: EdgeInsets.zero,
                   child: Text(
-                    'Members', // TODO: ADD LOCALIZATION
+                    locale.members,
                   ),
                 ),
                 Tab(
                   iconMargin: EdgeInsets.zero,
                   child: Text(
-                    'Media', // TODO: ADD LOCALIZATION
+                    locale.media,
                   ),
                 ),
               ],

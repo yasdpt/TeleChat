@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:telechat/core/consts/app_consts.dart';
+import 'package:telechat/features/settings/presentation/pages/change_bio_page.dart';
+import 'package:telechat/features/settings/presentation/pages/change_username_page.dart';
 import 'package:telechat/features/settings/presentation/pages/chat_settings_page.dart';
 
 import '../../../../core/styles/colors.dart';
@@ -113,13 +115,19 @@ class _SettingsPageState extends State<SettingsPage> {
               isLight: isLight,
               title: '@MrYaS',
               subtitle: locale.username,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(ChangeUsernamePage.routeName,
+                    arguments: 'MrYaS');
+              },
             ),
             _buildSettingsItemWithoutIcon(
               isLight: isLight,
               title: '21 year old Programmer',
               subtitle: locale.bio,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(ChangeBioPage.routeName,
+                    arguments: '21 year old Programmer');
+              },
             ),
             Container(
               height: 15,

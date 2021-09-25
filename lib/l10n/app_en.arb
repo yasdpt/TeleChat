@@ -25,6 +25,15 @@
     "from": "From",
 
     "search": "Search",
+    "media": "Media",
+    "members": "Members",
+    "changeUsername": "Change username",
+    "yourUsername": "Your Username",
+    "changeUsernameDetail": "You can choose a username on TeleChat. If you do, people will be able to find you by this username and contact you without needing your phone number.\n\nYou can use a-z, 0-9 and underscores.\nMinimum length is 5 characters.\n\nThis link opens a chat with you:",
+    "pleaseEnterAValidUsername": "Please enter a valid username",
+    "pleaseEnterAtLeast5Characters": "Please enter at least 5 characters",
+    "copied": "copied!",
+    "bioDetail": "You can add a few lines about yourself.\nAnyone who opens your profile will see this text.",
 
     "end": "end"
 }

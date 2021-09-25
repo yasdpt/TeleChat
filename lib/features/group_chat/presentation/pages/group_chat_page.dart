@@ -8,6 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:telechat/features/group_chat/presentation/widgets/group_chat_item.dart';
+import 'package:telechat/features/group_chat/presentation/widgets/group_chat_list.dart';
 import 'package:telechat/features/private_chat/presentation/widgets/chat_footer.dart';
 
 import '../../../../core/consts/app_enums.dart';
@@ -221,25 +222,10 @@ class _GroupChatPageState extends State<GroupChatPage> {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: ListView.builder(
-                    itemCount: chatList.length,
-                    padding:
-                        const EdgeInsetsDirectional.only(top: 8, bottom: 4),
-                    reverse: true,
-                    itemBuilder: (context, index) {
-                      final chat = chatList[index];
-                      if (chat['sender_id'] == 1) {
-                        return GroupChatItem(
-                          messageSender: MessageSender.me,
-                          message: chatList[index],
-                        );
-                      } else {
-                        return GroupChatItem(
-                          messageSender: MessageSender.other,
-                          message: chatList[index],
-                        );
-                      }
-                    }),
+                child: GroupChatList(
+                  chatList: chatList,
+                  reverse: true,
+                ),
               ),
               ChatFooter()
             ],
