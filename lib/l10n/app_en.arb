@@ -24,5 +24,7 @@
     "forwardedMessage": "Forwarded message",
     "from": "From",
 
+    "search": "Search",
+
     "end": "end"
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:telechat/core/consts/app_consts.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/text_field_decoration.dart';
-import '../../../../core/utils/get_shared_pref.dart';
+import '../../../../core/utils/hive_controller.dart';
 
 class ChatFooter extends StatefulWidget {
   ChatFooter({Key key}) : super(key: key);
@@ -17,7 +20,8 @@ class _ChatFooterState extends State<ChatFooter> {
   bool showSend = false;
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
+    final locale = AppLocalizations.of(context);
     bool isLight = controller.getAppTheme == ThemeMode.light;
     return Container(
         color: isLight
@@ -54,7 +58,7 @@ class _ChatFooterState extends State<ChatFooter> {
                 },
                 decoration: defaultInputDecoration(
                   context,
-                  'Message',
+                  locale.message,
                   backgroudColor: isLight
                       ? Colors.white
                       : Theme.of(context).appBarTheme.backgroundColor,

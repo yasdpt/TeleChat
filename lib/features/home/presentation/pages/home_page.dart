@@ -1,26 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:telechat/features/chat/presentation/pages/group_chat_page.dart';
-import 'package:web_socket_channel/src/copy/web_socket_impl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
-import 'package:realtime_client/src/constants.dart';
-import 'package:grouped_list/grouped_list.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase/supabase.dart';
-import '../../../../core/consts/app_enums.dart';
-import '../../../chat/presentation/widgets/group_chat_item.dart';
+import 'package:telechat/core/consts/app_consts.dart';
 
-import '../../../../core/consts/app_config.dart';
-import '../../../../core/cubit/app_theme_cubit.dart';
-import '../../../../core/utils/get_shared_pref.dart';
-import '../../../chat/presentation/pages/private_chat_page.dart';
+import '../../../../core/utils/hive_controller.dart';
+import '../../../group_chat/presentation/pages/group_chat_page.dart';
+import '../../../search/presentation/pages/search_page.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/chat_item_widget.dart';
 
@@ -73,13 +63,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    client = SupabaseClient(AppConfig.supaBaseUrl, AppConfig.supaBaseKey);
-    client.realtime.obs.listen(
-      (onData) {
-        print("Socket state: " + onData.connState.name());
-      },
-    );
-
     // final response =
     //     await client.from('private_messages').select().limit(2).execute();
 
@@ -139,6 +122,8 @@ class _HomePageState extends State<HomePage> {
     //   print(response2.data.toString());
     // }
     final sssUrl = client.storage.from('chatimages').getPublicUrl('result.txt');
+    final dlFile =
+        await client.storage.from('chatimages').download('result.txt');
 
     // client
     //     .from('messages')
@@ -146,7 +131,12 @@ class _HomePageState extends State<HomePage> {
     //     .order('created_at', ascending: true)
     //     .limit(30)
     //     .execute();
-    // print(sssUrl.data);
+    print(sssUrl.data);
+    var file = await DefaultCacheManager().putFile(
+      sssUrl.data,
+      dlFile.data,
+      key: sssUrl.data,
+    );
 
     // final response3 = await client.storage.createBucket('photos');
     // final path = await _localPath;
@@ -168,7 +158,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // final locale = AppLocalizations.of(context).helloWorld;
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
     // print(locale);
     //getUsers();
     return Scaffold(
@@ -182,12 +172,13 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: Icon(MdiIcons.magnify),
             onPressed: () {
-              if (controller.getLanguage == 'en') {
-                controller.updateLanguage('fa');
-              } else {
-                controller.updateLanguage('en');
-              }
-              BlocProvider.of<AppThemeCubit>(context).toggleLanguage();
+              // if (controller.getLanguage == 'en') {
+              //   controller.updateLanguage('fa');
+              // } else {
+              //   controller.updateLanguage('en');
+              // }
+              // BlocProvider.of<AppThemeCubit>(context).toggleLanguage();
+              Navigator.of(context).pushNamed(SearchPage.routeName);
             },
           ),
         ],
@@ -199,7 +190,7 @@ class _HomePageState extends State<HomePage> {
         // child: StreamBuilder(
         //   initialData: initialData,
         //   stream: client
-        //       .from('private_messages')
+        //       .from('private_messages:chat_hash=eq.vdokvdo:msg=eq.kovkdo')
         //       .stream()
         //       .order('created_at')
         //       .limit(limit)
@@ -239,30 +230,15 @@ class _HomePageState extends State<HomePage> {
         //     }
         //   },
         // ),
-        // child: ElevatedButton(
-        //   onPressed: () {
-        //     // Navigator.of(context).pushNamed(ChatPage.routeName, arguments: 5);
-        //     // if (controller.getLanguage == 'en') {
-        //     //   controller.updateLanguage('fa');
-        //     // } else {
-        //     //   controller.updateLanguage('en');
-        //     // }
-        //     if (controller.getAppTheme == ThemeMode.light) {
-        //       controller.updateAppTheme('dark');
-        //     } else {
-        //       controller.updateAppTheme('light');
-        //     }
-        //     BlocProvider.of<AppThemeCubit>(context).toggleLanguage();
-        //   },
-        //   child: Text(
-        //     'Go to chat page',
-        //   ),
-        // ),
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: 10,
+          separatorBuilder: (context, index) => Container(
+            height: 0.9,
+            color: Theme.of(context).dividerColor,
+          ),
           itemBuilder: (context, index) => ChatItemWidget(
             onTap: () {
-              Navigator.of(context).pushNamed(PrivateChatPage.routeName);
+              Navigator.of(context).pushNamed(GroupChatPage.routeName);
             },
           ),
         ),

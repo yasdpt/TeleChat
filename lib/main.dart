@@ -1,33 +1,38 @@
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_portal/flutter_portal.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:telechat/core/consts/app_consts.dart';
 
 import 'core/cubit/app_theme_cubit.dart';
 import 'core/styles/theme.dart';
-import 'core/utils/get_shared_pref.dart';
+import 'core/utils/hive_controller.dart';
 import 'core/utils/router.dart';
 import 'features/home/presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-  // );
+  await _setupHive();
   runApp(MyApp());
+}
+
+Future<void> _setupHive() async {
+  var dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+  await Hive.openBox(sHiveBoxKey);
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
     return MultiBlocProvider(
       providers: [
         BlocProvider<AppThemeCubit>(

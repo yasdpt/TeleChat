@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:telechat/core/styles/colors.dart';
-import 'package:get/get.dart';
-import 'package:telechat/core/styles/text_field_decoration.dart';
-import 'package:telechat/core/utils/get_shared_pref.dart';
-import 'package:telechat/features/chat/presentation/widgets/chat_footer.dart';
+import 'package:telechat/core/consts/app_consts.dart';
 
 import '../../../../core/consts/app_enums.dart';
+import '../../../../core/styles/colors.dart';
+import '../../../../core/utils/hive_controller.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
+import '../widgets/chat_footer.dart';
 import '../widgets/private_chat_item.dart';
 
 class PrivateChatPage extends StatefulWidget {
@@ -43,7 +45,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       'msg': 'I am sure you do',
       'chat_hash': 'dvoddo',
       'file_url': 'vdovkdo',
-      'meta': 'vdovkd',
+      'meta': 'image',
       'sender_id': 2,
       'reply_message_id': 22,
       'forwarded_from_id': null,
@@ -56,10 +58,10 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
     },
     {
       'group_message_id': 1,
-      'msg': 'Thank you im fine',
+      'msg': 'Thank you im fine ',
       'chat_hash': 'vdokdok',
       'file_url': 'vdkdovkd',
-      'meta': 'vdokvdo',
+      'meta': 'image',
       'sender_id': 1,
       'reply_message_id': 30,
       'forwarded_from_id': null,
@@ -75,7 +77,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       'msg': 'Hey guys',
       'chat_hash': 'vdokdok',
       'file_url': 'vdkdovkd',
-      'meta': 'vdokvdo',
+      'meta': 'image',
       'sender_id': 1,
       'reply_message_id': null,
       'forwarded_from_id': null,
@@ -91,7 +93,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       'msg': 'We are fine friend how are you?',
       'chat_hash': 'dvoddo',
       'file_url': 'vdovkdo',
-      'meta': 'vdovkd',
+      'meta': 'image',
       'sender_id': 2,
       'reply_message_id': null,
       'forwarded_from_id': null,
@@ -107,7 +109,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
       'msg': 'Yesterday i was sick',
       'chat_hash': 'dvoddo',
       'file_url': 'vdovkdo',
-      'meta': 'vdovkd',
+      'meta': 'image',
       'sender_id': 2,
       'reply_message_id': null,
       'forwarded_from_id': 33,
@@ -132,7 +134,7 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
     bool isLight = controller.getAppTheme == ThemeMode.light;
     return Scaffold(
       backgroundColor: cDarkGreyBlue,
@@ -142,7 +144,9 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
         title: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(ProfilePage.routeName);
+            },
             child: Padding(
               padding: const EdgeInsets.all(2.0),
               child: Row(
@@ -193,32 +197,43 @@ class _PrivateChatPageState extends State<PrivateChatPage> {
           IconButton(icon: Icon(MdiIcons.dotsVertical), onPressed: () {})
         ],
       ),
-      body: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsetsDirectional.only(top: 8, bottom: 4),
-                  itemCount: chatList.length,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    final chat = chatList[index];
-                    if (chat['sender_id'] == 1) {
-                      return PrivateChatItem(
-                        messageSender: MessageSender.me,
-                        message: chatList[index],
-                      );
-                    } else {
-                      return PrivateChatItem(
-                        messageSender: MessageSender.other,
-                        message: chatList[index],
-                      );
-                    }
-                  }),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            repeat: ImageRepeat.repeat,
+            image: AssetImage(
+              controller.getBackgroundImage,
             ),
-            ChatFooter(),
-          ],
+          ),
+        ),
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
+                    padding:
+                        const EdgeInsetsDirectional.only(top: 8, bottom: 4),
+                    itemCount: chatList.length,
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      final chat = chatList[index];
+                      if (chat['sender_id'] == 1) {
+                        return PrivateChatItem(
+                          messageSender: MessageSender.me,
+                          message: chatList[index],
+                        );
+                      } else {
+                        return PrivateChatItem(
+                          messageSender: MessageSender.other,
+                          message: chatList[index],
+                        );
+                      }
+                    }),
+              ),
+              ChatFooter(),
+            ],
+          ),
         ),
       ),
     );

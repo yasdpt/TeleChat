@@ -11,6 +11,7 @@ class CustomTheme {
       accentColor: Colors.blue,
       colorScheme: ColorScheme.light(
         secondary: cLightThemeSecondaryColor,
+        onSecondary: const Color(0xffa2a2a2),
         onPrimary: Colors.black,
       ),
       primaryColorDark: cLightMessageMe,
@@ -19,7 +20,7 @@ class CustomTheme {
       primarySwatch: Colors.indigo,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.blue[400], //Color(0xFFFFFFFF),
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
@@ -71,15 +72,16 @@ class CustomTheme {
       colorScheme: ColorScheme.light(
         secondary: cDarkThemeSecondaryColor,
         onPrimary: Colors.white,
+        onSecondary: const Color(0xff6b7b8c),
       ),
-      primarySwatch: Colors.indigo,
+      primarySwatch: Colors.blue,
       appBarTheme: AppBarTheme(
         backgroundColor: cDarkThemeColor,
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       primaryColorDark: cDarkMessageMe,
       primaryColorLight: cDarkMessageOther,
-      dividerColor: Colors.grey[900],
+      dividerColor: Color(0xff17212b),
       fontFamily: 'Vazir',
       textTheme: TextTheme(
         headline1: TextStyle(

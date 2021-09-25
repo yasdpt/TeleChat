@@ -29,7 +29,7 @@ class TriangleClipperOther extends CustomClipper<Path> {
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.quadraticBezierTo(
-      size.width / 2,
+      size.width / 1.5,
       size.height / 1.2,
       size.width,
       0.0,

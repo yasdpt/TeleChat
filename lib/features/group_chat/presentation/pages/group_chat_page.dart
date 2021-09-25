@@ -2,13 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:grouped_list/grouped_list.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:telechat/features/group_chat/presentation/widgets/group_chat_item.dart';
+import 'package:telechat/features/private_chat/presentation/widgets/chat_footer.dart';
 
 import '../../../../core/consts/app_enums.dart';
+import '../../../../core/styles/colors.dart';
+import '../../../../core/utils/hive_controller.dart';
 import '../../../../core/widgets/better_stream_builder.dart';
-import '../widgets/group_chat_item.dart';
+import 'group_profile_page.dart';
 
 class GroupChatPage extends StatefulWidget {
   static const String routeName = '/groupChatPage';
@@ -41,7 +47,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
       'msg': 'I am wondering where everyone is?',
       'chat_hash': 'vdokdok',
       'file_url': 'vdkdovkd',
-      'meta': 'vdokvdo',
+      'meta': 'image',
       'sender_id': 1,
       'reply_message_id': null,
       'forwarded_from_id': 30,
@@ -134,42 +140,111 @@ class _GroupChatPageState extends State<GroupChatPage> {
     },
   ];
 
+  final controller = HiveController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: cDarkGrey,
       appBar: AppBar(
-        title: Text(
-          'Group Chat',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-                itemCount: chatList.length,
-                reverse: true,
-                itemBuilder: (context, index) {
-                  final chat = chatList[index];
-                  if (chat['sender_id'] == 1) {
-                    return GroupChatItem(
-                      messageSender: MessageSender.me,
-                      message: chatList[index],
-                    );
-                  } else {
-                    return GroupChatItem(
-                      messageSender: MessageSender.other,
-                      message: chatList[index],
-                    );
-                  }
-                }),
+        titleSpacing: 0,
+        toolbarHeight: 64,
+        title: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(GroupProfilePage.routeName);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: getRandomColor(),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Text(
+                          'D',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline1
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        'Dev Experts',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(color: Colors.white),
+                      ),
+                      Text('22 members, 2 online',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              .copyWith(color: Colors.grey[300]))
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
-          Container(
-            height: 60,
-            color: Colors.blue,
-          )
+        ),
+        actions: [
+          IconButton(icon: Icon(MdiIcons.dotsVertical), onPressed: () {})
         ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            repeat: ImageRepeat.repeat,
+            image: AssetImage(
+              controller.getBackgroundImage,
+            ),
+          ),
+        ),
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
+                    itemCount: chatList.length,
+                    padding:
+                        const EdgeInsetsDirectional.only(top: 8, bottom: 4),
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      final chat = chatList[index];
+                      if (chat['sender_id'] == 1) {
+                        return GroupChatItem(
+                          messageSender: MessageSender.me,
+                          message: chatList[index],
+                        );
+                      } else {
+                        return GroupChatItem(
+                          messageSender: MessageSender.other,
+                          message: chatList[index],
+                        );
+                      }
+                    }),
+              ),
+              ChatFooter()
+            ],
+          ),
+        ),
       ),
     );
   }

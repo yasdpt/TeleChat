@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:telechat/core/consts/app_consts.dart';
+import 'package:telechat/features/settings/presentation/pages/chat_settings_page.dart';
 
 import '../../../../core/styles/colors.dart';
-import '../../../../core/utils/get_shared_pref.dart';
+import '../../../../core/utils/hive_controller.dart';
 import 'language_page.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
     final locale = AppLocalizations.of(context);
     bool isLight = controller.getAppTheme == ThemeMode.light;
     return Scaffold(
@@ -37,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 250.0,
+              expandedHeight: MediaQuery.of(context).size.width / 1.4,
               floating: true,
               pinned: true,
               actions: [
@@ -51,27 +53,48 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
               flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    "Mr YaS",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
+                title: Text(
+                  "Mr YaS",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
                   ),
-                  background: Image.asset(
-                    'assets/images/ic_avatar.png',
-                    fit: BoxFit.cover,
-                  )),
+                ),
+                background: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      child: Image.asset(
+                        'assets/images/ic_avatar.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(0.45),
+                            Colors.transparent
+                          ],
+                          begin: Alignment(0.5, 1),
+                          end: Alignment(0.5, 0.4),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ];
         },
-        body: ListView(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               margin: const EdgeInsetsDirectional.only(
                 start: 18,
-                top: 18,
                 bottom: 4,
+                top: 12,
               ),
               child: Text(
                 locale.account,
@@ -125,7 +148,9 @@ class _SettingsPageState extends State<SettingsPage> {
               isLight: isLight,
               icon: MdiIcons.chatOutline,
               title: locale.chatSettings,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(ChatSettingsPage.routeName);
+              },
             ),
             _buildSettingsItemWithIcon(
               isLight: isLight,

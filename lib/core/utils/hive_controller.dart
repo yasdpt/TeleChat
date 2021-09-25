@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:hive/hive.dart';
 
 import '../consts/app_consts.dart';
 
-class SharedPrefController extends GetxController {
-  final box = GetStorage();
+class HiveController {
+  final hiveBox = Hive.box(sHiveBoxKey);
 
-  String get getLanguage => box.read(sLanguageKey) ?? 'en';
-  void updateLanguage(String language) => box.write(sLanguageKey, language);
+  String get getLanguage => hiveBox.get(sLanguageKey, defaultValue: 'en');
+  void updateLanguage(String language) => hiveBox.put(sLanguageKey, language);
 
   ThemeMode get getAppTheme {
-    if (box.read(sAppThemeKey) == null) {
+    if (hiveBox.get(sAppThemeKey) == null) {
       return ThemeMode.light;
     } else {
-      if (box.read(sAppThemeKey) == 'light') {
+      if (hiveBox.get(sAppThemeKey) == 'light') {
         return ThemeMode.light;
       } else {
         return ThemeMode.dark;
@@ -22,7 +21,16 @@ class SharedPrefController extends GetxController {
     }
   }
 
-  void updateAppTheme(String val) => box.write(sAppThemeKey, val);
+  double get getFontSize => hiveBox.get(sFontSizeKey, defaultValue: 16.0);
+
+  String get getBackgroundImage => hiveBox.get(sBackgroundKey,
+      defaultValue: 'assets/images/background3.jpg');
+
+  void upFontSize(double fontSize) => hiveBox.put(sFontSizeKey, fontSize);
+
+  void updateAppTheme(String val) => hiveBox.put(sAppThemeKey, val);
+
+  void upBackgroundImage(String image) => hiveBox.put(sBackgroundKey, image);
 
   // String get getUserId => box.read(kUserId) ?? '';
   // void updateUserId(String val) => box.write(kUserId, val);

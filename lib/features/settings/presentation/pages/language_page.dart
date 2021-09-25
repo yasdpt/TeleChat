@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:telechat/core/consts/app_consts.dart';
 
 import '../../../../core/cubit/app_theme_cubit.dart';
 import '../../../../core/styles/colors.dart';
-import '../../../../core/utils/get_shared_pref.dart';
+import '../../../../core/utils/hive_controller.dart';
 
 class LanguagePage extends StatelessWidget {
   static const String routeName = '/languagePage';
@@ -13,7 +14,7 @@ class LanguagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SharedPrefController());
+    final controller = HiveController();
     bool isLight = controller.getAppTheme == ThemeMode.light;
     final locale = AppLocalizations.of(context);
     String selectedLanguage = controller.getLanguage;
