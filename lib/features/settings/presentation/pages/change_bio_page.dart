@@ -1,9 +1,7 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:telechat/core/utils/custom_toast.dart';
 
 import '../../../../core/styles/text_field_decoration.dart';
 import '../../../../core/utils/hive_controller.dart';
@@ -53,6 +51,7 @@ class _ChangeBioPageState extends State<ChangeBioPage> {
           IconButton(
             onPressed: () {
               if (_formKey.currentState.validate()) {
+                FocusScope.of(context).unfocus();
                 Navigator.of(context).pop();
               }
             },
@@ -63,54 +62,60 @@ class _ChangeBioPageState extends State<ChangeBioPage> {
           )
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(0),
+      body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsetsDirectional.only(
-              start: 18,
-              end: 18,
-              top: 18,
-              bottom: 18,
-            ),
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: FormBuilderTextField(
-                      name: 'bio',
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      maxLength: 70,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          .copyWith(fontSize: 16),
-                      controller: _textController,
-                      decoration: defaultInputDecorationUnderline(
-                        context,
-                        _locale.bio,
-                        backgroudColor: isLight
-                            ? Colors.white
-                            : Theme.of(context).appBarTheme.backgroundColor,
+          Expanded(
+              child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 18,
+                  end: 18,
+                  top: 18,
+                  bottom: 18,
+                ),
+                child: FormBuilder(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: FormBuilderTextField(
+                          name: 'bio',
+                          autofocus: true,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          maxLength: 70,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              .copyWith(fontSize: 16),
+                          controller: _textController,
+                          decoration: defaultInputDecorationUnderline(
+                            context,
+                            _locale.bio,
+                            backgroudColor: isLight
+                                ? Colors.white
+                                : Theme.of(context).appBarTheme.backgroundColor,
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      Text(
+                        _locale.bioDetail,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            .copyWith(fontSize: 16),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    _locale.bioDetail,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        .copyWith(fontSize: 16),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            ],
+          ))
         ],
       ),
     );

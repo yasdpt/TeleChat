@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:telechat/features/settings/presentation/pages/change_nickname_page.dart';
 
 import '../../features/contacts/presentation/pages/contacts_page.dart';
 import '../../features/group_chat/presentation/pages/group_chat_page.dart';
@@ -73,6 +74,11 @@ Route<dynamic> generateRoutes(RouteSettings settings) {
     case ChangeBioPage.routeName:
       return CupertinoPageRoute(
         builder: (_) => ChangeBioPage(),
+        settings: settings,
+      );
+    case ChangeNicknamePage.routeName:
+      return CupertinoPageRoute(
+        builder: (_) => ChangeNicknamePage(),
         settings: settings,
       );
     default:

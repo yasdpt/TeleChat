@@ -80,7 +80,7 @@ InputDecoration defaultInputDecorationUnderline(
     alignLabelWithHint: true,
     enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: Colors.blue,
+        color: Theme.of(context).colorScheme.onSecondary,
         width: 2,
       ),
       borderRadius: BorderRadius.circular(0),

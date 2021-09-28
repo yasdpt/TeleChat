@@ -53,6 +53,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
           IconButton(
             onPressed: () {
               if (_formKey.currentState.validate()) {
+                FocusScope.of(context).unfocus();
                 Navigator.of(context).pop();
               }
             },
@@ -63,84 +64,96 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
           )
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(0),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsetsDirectional.only(
-              start: 18,
-              end: 18,
-              top: 18,
-              bottom: 18,
-            ),
-            child: FormBuilder(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: FormBuilderTextField(
-                      name: 'username',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          .copyWith(fontSize: 16),
-                      controller: _textController,
-                      validator: (value) {
-                        String pattern = r'(^[a-zA-Z0-9_]*$)';
-                        RegExp regExp = new RegExp(pattern);
-                        if (!regExp.hasMatch(value)) {
-                          return _locale.pleaseEnterAValidUsername;
-                        } else if (value.isEmpty) {
-                          return null;
-                        } else if (value.length < 5) {
-                          return _locale.pleaseEnterAtLeast5Characters;
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        setState(() {});
-                        _formKey.currentState.validate();
-                      },
-                      decoration: defaultInputDecorationUnderline(
-                        context,
-                        _locale.yourUsername,
-                        backgroudColor: isLight
-                            ? Colors.white
-                            : Theme.of(context).appBarTheme.backgroundColor,
-                      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(0),
+              shrinkWrap: true,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 18,
+                    end: 18,
+                    top: 18,
+                    bottom: 18,
+                  ),
+                  child: FormBuilder(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: FormBuilderTextField(
+                            name: 'username',
+                            autofocus: true,
+                            keyboardType: TextInputType.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .copyWith(fontSize: 16),
+                            controller: _textController,
+                            validator: (value) {
+                              String pattern = r'(^[a-zA-Z0-9_]*$)';
+                              RegExp regExp = new RegExp(pattern);
+                              if (!regExp.hasMatch(value)) {
+                                return _locale.pleaseEnterAValidUsername;
+                              } else if (value.isEmpty) {
+                                return null;
+                              } else if (value.length < 5) {
+                                return _locale.pleaseEnterAtLeast5Characters;
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              setState(() {});
+                              _formKey.currentState.validate();
+                            },
+                            decoration: defaultInputDecorationUnderline(
+                              context,
+                              _locale.yourUsername,
+                              backgroudColor: isLight
+                                  ? Colors.white
+                                  : Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          _locale.changeUsernameDetail,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              .copyWith(fontSize: 16),
+                        ),
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              FlutterClipboard.copy(
+                                      'https://telechat.com/${_textController.text}')
+                                  .then((value) => kShowToast(
+                                      'https://telechat.com/${_textController.text} ${_locale.copied}'));
+                            },
+                            child: Text(
+                              'https://telechat.com/${_textController.text}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3
+                                  .copyWith(
+                                      fontSize: 16, color: Colors.blue[300]),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    _locale.changeUsernameDetail,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        .copyWith(fontSize: 16),
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        FlutterClipboard.copy(
-                                'https://telechat.com/${_textController.text}')
-                            .then((value) => kShowToast(
-                                'https://telechat.com/${_textController.text} ${_locale.copied}'));
-                      },
-                      child: Text(
-                        'https://telechat.com/${_textController.text}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(fontSize: 16, color: Colors.blue[300]),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],

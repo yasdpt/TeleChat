@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:telechat/core/consts/app_consts.dart';
 import 'package:telechat/features/settings/presentation/pages/change_bio_page.dart';
+import 'package:telechat/features/settings/presentation/pages/change_nickname_page.dart';
 import 'package:telechat/features/settings/presentation/pages/change_username_page.dart';
 import 'package:telechat/features/settings/presentation/pages/chat_settings_page.dart';
 
@@ -47,7 +48,10 @@ class _SettingsPageState extends State<SettingsPage> {
               actions: [
                 IconButton(
                   icon: Icon(MdiIcons.pencilOutline),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(ChangeNicknamePage.routeName);
+                  },
                 ),
                 IconButton(
                   icon: Icon(MdiIcons.dotsVertical),
