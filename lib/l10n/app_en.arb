@@ -38,5 +38,9 @@
     "lastName": "Last name (optional)",
     "editName": "Edit name",
 
+    "logout": "Log out",
+    "openMenu": "Open menu",
+    "setNewPhoto": "Set new photo",
+
     "end": "end"
 }

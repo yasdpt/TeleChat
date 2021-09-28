@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:telechat/core/consts/app_consts.dart';
+import 'package:telechat/core/styles/style_consts.dart';
 import 'package:telechat/features/settings/presentation/pages/change_bio_page.dart';
 import 'package:telechat/features/settings/presentation/pages/change_nickname_page.dart';
 import 'package:telechat/features/settings/presentation/pages/change_username_page.dart';
@@ -46,16 +47,94 @@ class _SettingsPageState extends State<SettingsPage> {
               floating: true,
               pinned: true,
               actions: [
-                IconButton(
-                  icon: Icon(MdiIcons.pencilOutline),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(ChangeNicknamePage.routeName);
+                PopupMenuButton(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  padding: EdgeInsets.zero,
+                  tooltip: locale.openMenu,
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      height: 40,
+                      textStyle: Theme.of(context).textTheme.headline3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            MdiIcons.pencilOutline,
+                            color: cDarkGrey,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            locale.editName,
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        ],
+                      ),
+                      value: 0,
+                    ),
+                    PopupMenuItem(
+                      height: 40,
+                      textStyle: Theme.of(context).textTheme.headline3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            MdiIcons.cameraPlusOutline,
+                            color: cDarkGrey,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            locale.setNewPhoto,
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        ],
+                      ),
+                      value: 1,
+                    ),
+                    PopupMenuItem(
+                      height: 40,
+                      textStyle: Theme.of(context).textTheme.headline3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.logout_rounded,
+                            color: cDarkGrey,
+                          ),
+                          SizedBox(width: 10),
+                          Text(locale.logout,
+                              style: Theme.of(context).textTheme.headline3),
+                        ],
+                      ),
+                      value: 2,
+                    ),
+                  ],
+                  onSelected: (val) {
+                    switch (val) {
+                      case 0:
+                        {
+                          Navigator.of(context)
+                              .pushNamed(ChangeNicknamePage.routeName);
+                          break;
+                        }
+                      case 1:
+                        {
+                          break;
+                        }
+                      case 2:
+                        {
+                          Navigator.of(context).pop();
+                          break;
+                        }
+                      default:
+                        break;
+                    }
                   },
-                ),
-                IconButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      kBorderRadius,
+                    ),
+                  ),
                   icon: Icon(MdiIcons.dotsVertical),
-                  onPressed: () {},
                 ),
               ],
               flexibleSpace: FlexibleSpaceBar(
