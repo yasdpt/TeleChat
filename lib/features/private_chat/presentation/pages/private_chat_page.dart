@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:telechat/core/consts/app_consts.dart';
-import 'package:telechat/core/widgets/better_stream_builder.dart';
-import 'package:telechat/features/private_chat/presentation/widgets/private_chat_list.dart';
 
-import '../../../../core/consts/app_enums.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/utils/hive_controller.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 import '../widgets/chat_footer.dart';
-import '../widgets/private_chat_item.dart';
+import '../widgets/private_chat_list.dart';
 
 class PrivateChatPage extends StatefulWidget {
   static const String routeName = '/privateChatPage';

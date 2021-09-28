@@ -70,7 +70,9 @@ class _ImageViewerDialogState extends State<ImageViewerDialog> {
                                           Icons.arrow_back,
                                           color: Colors.white,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
                                       ),
                                       SizedBox(width: 18),
                                       Text(

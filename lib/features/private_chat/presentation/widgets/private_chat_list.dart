@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:telechat/core/widgets/better_stream_builder.dart';
-import 'package:telechat/features/private_chat/presentation/widgets/date_divider.dart';
+import 'package:telechat/core/utils/time_util.dart';
 
 import '../../../../core/consts/app_enums.dart';
+import '../../../../core/widgets/better_stream_builder.dart';
 import 'private_chat_item.dart';
 
 class PrivateChatList extends StatefulWidget {
@@ -26,15 +28,18 @@ class _PrivateChatListState extends State<PrivateChatList> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
   Stream<Iterable<ItemPosition>> _itemPositionStream;
+  Stream<Iterable<ItemPosition>> _positionsStream;
   int initialIndex = 0;
-  int _messageListLength;
   double initialAlignment = 0;
+  AppLocalizations _locale;
 
   @override
   void initState() {
     _scrollController = ItemScrollController();
     _itemPositionListener = ItemPositionsListener.create();
     _itemPositionStream =
+        _valueListenableToStreamAdapter(_itemPositionListener.itemPositions);
+    _positionsStream =
         _valueListenableToStreamAdapter(_itemPositionListener.itemPositions);
     super.initState();
   }
@@ -46,26 +51,7 @@ class _PrivateChatListState extends State<PrivateChatList> {
 
   @override
   Widget build(BuildContext context) {
-    final newMessagesListLength = widget.chatList.length;
-    // if (_messageListLength != null) {
-    //   if (_bottomPaginationActive) {
-    //     if (_itemPositionListener.itemPositions.value.isNotEmpty == true) {
-    //       final first = _itemPositionListener.itemPositions.value.first;
-    //       final diff = newMessagesListLength - _messageListLength;
-    //       if (diff > 0) {
-    //         initialIndex = first.index + diff;
-    //         initialAlignment = first.itemLeadingEdge;
-    //       }
-    //     }
-    //   } else if (!_topPaginationActive) {
-    //     // Reset the index in-case we send any new message
-    //     initialIndex = 0;
-    //     initialAlignment = 0;
-    //   }
-    // }
-
-    _messageListLength = newMessagesListLength;
-
+    _locale = AppLocalizations.of(context);
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -93,8 +79,71 @@ class _PrivateChatListState extends State<PrivateChatList> {
             }
           },
         ),
+        _buildScrollToBottom(widget.chatList.length),
         _buildFloatingDateDivider(widget.chatList.length),
       ],
+    );
+  }
+
+  Widget _buildScrollToBottom(int itemCount) {
+    return BetterStreamBuilder<Iterable<ItemPosition>>(
+      initialData: _itemPositionListener.itemPositions.value,
+      stream: _positionsStream,
+      builder: (context, values) {
+        if (values.isEmpty || widget.chatList.isEmpty) {
+          return const Offstage();
+        }
+
+        if (values.first.index != 0) {
+          return Positioned(
+            bottom: 8,
+            right: 8,
+            width: 50,
+            height: 50,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  onPressed: () {
+                    // _scrollController.scrollTo(
+                    //   index: 0,
+                    //   duration: const Duration(milliseconds: 300),
+                    //   curve: Curves.easeInOut,
+                    // );
+                    _scrollController.jumpTo(index: 0);
+                  },
+                  child: Icon(
+                    MdiIcons.chevronDown,
+                    color: Theme.of(context).textTheme.headline3.color,
+                  ),
+                ),
+                // if (true)
+                //   Positioned(
+                //     width: 20,
+                //     height: 20,
+                //     left: 15,
+                //     top: -10,
+                //     child: CircleAvatar(
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(3),
+                //         child: Text(
+                //           '1',
+                //           style: const TextStyle(
+                //             fontSize: 11,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+              ],
+            ),
+          );
+        } else {
+          return const Offstage();
+        }
+      },
     );
   }
 
@@ -152,7 +201,10 @@ class _PrivateChatListState extends State<PrivateChatList> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  DateTime.parse(message['created_at']).toLocal().toString(),
+                  TimeUtil.getDateString(
+                    _locale,
+                    DateTime.parse(message['created_at']).toLocal(),
+                  ),
                   style: Theme.of(context)
                       .textTheme
                       .headline3

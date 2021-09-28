@@ -42,5 +42,26 @@
     "openMenu": "Open menu",
     "setNewPhoto": "Set new photo",
 
+    "farvardin": "Farvardin",
+    "ordibehesht": "Ordibehesht",
+    "khordad": "Khordad",
+    "tir": "Tir",
+    "mordad": "Mordad",
+    "shahrivar": "Shahrivar",
+    "mehr": "Mehr",
+    "aban": "Aban",
+    "azar": "Azar",
+    "dey": "Dey",
+    "bahman": "Bahman",
+    "esfand": "Esfand",
+
+    "saturday": "Sat",
+    "sunday": "Sun",
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    
     "end": "end"
 }

@@ -52,6 +52,7 @@ dependencies:
   share_plus: ^2.1.4
   supabase: ^0.2.7
   universal_platform: ^1.0.0+1
+  shamsi_date: ^0.15.0
   video_thumbnail: ^0.4.3
 
 dev_dependencies:

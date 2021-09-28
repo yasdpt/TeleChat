@@ -42,5 +42,26 @@
     "openMenu": "باز کردن منو",
     "setNewPhoto": "آپلود عکس جدید",
 
+    "farvardin": "فروردین",
+    "ordibehesht": "اردیبهشت",
+    "khordad": "خرداد",
+    "tir": "تیر",
+    "mordad": "مرداد",
+    "shahrivar": "شهریور",
+    "mehr": "مهر",
+    "aban": "آبان",
+    "azar": "آذر",
+    "dey": "دی",
+    "bahman": "بهمن",
+    "esfand": "اسفند",
+
+    "saturday": "شنبه",
+    "sunday": "یکشنبه",
+    "monday": "دوشنبه",
+    "tuesday": "سه شنبه",
+    "wednesday": "جهارشنبه",
+    "thursday": "پنج شنبه",
+    "friday": "جمعه",
+
     "end": "end"
 }

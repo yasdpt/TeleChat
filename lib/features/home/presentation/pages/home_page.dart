@@ -232,14 +232,17 @@ class _HomePageState extends State<HomePage> {
         //   },
         // ),
         child: ListView.separated(
-          itemCount: 10,
-          separatorBuilder: (context, index) => Container(
-            height: 0.9,
-            color: Theme.of(context).dividerColor,
-          ),
+          itemCount: 30,
+          separatorBuilder: (context, index) =>
+              controller.getAppTheme == ThemeMode.light
+                  ? Container(
+                      height: 0.9,
+                      color: Theme.of(context).dividerColor,
+                    )
+                  : const Offstage(),
           itemBuilder: (context, index) => ChatItemWidget(
             onTap: () {
-              Navigator.of(context).pushNamed(PrivateChatPage.routeName);
+              Navigator.of(context).pushNamed(GroupChatPage.routeName);
             },
           ),
         ),
